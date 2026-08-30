@@ -1,0 +1,26 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "kr.gronox/finbridge",
+  "title": "FinBridge",
+  "description": "Korean + US market data for AI agents: DART, Korean prices/screeners, SEC EDGAR, 13F. Free tier.",
+  "version": "0.1.0",
+  "websiteUrl": "https://www.gronox.kr",
+  "repository": {
+    "url": "https://github.com/Jakechj/finbridge-mcp",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.gronox.kr/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Bearer smcp_... API key from https://www.gronox.kr (free tier). OAuth-capable clients (e.g. Claude) can connect without a key via Google sign-in.",
+          "isRequired": false,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}
