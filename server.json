@@ -2,7 +2,7 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "kr.gronox/finbridge",
   "title": "FinBridge",
-  "description": "Korean + US market data for AI agents: DART, Korean prices/screeners, SEC EDGAR, 13F. Free tier.",
+  "description": "Multi-market financial data for AI agents: Korea and US core coverage, Taiwan fundamentals and prices, Japan filings. 33 MCP tools, free tier.",
   "version": "0.1.0",
   "websiteUrl": "https://www.gronox.kr",
   "repository": {
