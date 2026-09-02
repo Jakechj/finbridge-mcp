@@ -53,3 +53,7 @@ Settings → Apps & Connectors → Advanced → Developer mode → Create connec
 - This repository is the public listing for the hosted service; the server itself is not open source.
 
 Contact: 4y.changemaker@gmail.com
+
+## License
+
+The contents of this repository (listing metadata and documentation) are released under the [MIT License](./LICENSE). The hosted FinBridge service and its source code are not part of this repository and are provided under the [FinBridge Terms of Service](https://www.gronox.kr/terms).
