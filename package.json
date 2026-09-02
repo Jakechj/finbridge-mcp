@@ -1,0 +1,13 @@
+{
+  "name": "finbridge-mcp-listing",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Public listing manifest for the FinBridge remote MCP server (https://mcp.gronox.kr/mcp). The server itself is hosted; this repository carries only registry metadata.",
+  "homepage": "https://www.gronox.kr",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jakechj/finbridge-mcp"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

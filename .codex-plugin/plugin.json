@@ -1,0 +1,48 @@
+{
+  "name": "finbridge",
+  "version": "0.1.0",
+  "description": "Remote MCP server for Korean and US market data: DART and SEC EDGAR filings, corporate-action-adjusted Korean prices, screeners, insider activity, 13F holdings, and portfolio backtests.",
+  "author": {
+    "name": "GRONOX Corp.",
+    "url": "https://www.gronox.kr"
+  },
+  "homepage": "https://www.gronox.kr",
+  "repository": "https://github.com/Jakechj/finbridge-mcp",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "finance",
+    "stock-market",
+    "korea",
+    "dart",
+    "sec-edgar",
+    "13f",
+    "screener",
+    "backtest"
+  ],
+  "mcpServers": {
+    "finbridge": {
+      "type": "http",
+      "url": "https://mcp.gronox.kr/mcp"
+    }
+  },
+  "interface": {
+    "displayName": "FinBridge",
+    "shortDescription": "Korean + US market data for AI agents.",
+    "longDescription": "FinBridge is a remote MCP server (Streamable HTTP) that gives any MCP client unified access to Korean and US market data on one normalized schema: DART and SEC EDGAR filings, K-IFRS/US-GAAP financials, corporate-action-adjusted Korean daily prices and ETFs, insider trades, 13F holdings, technical indicators, valuation snapshots, named screeners over every Korean listing, and portfolio backtests. Serves only redistributable sources. Free tier: 100 metered calls a day, no card.",
+    "developerName": "GRONOX Corp.",
+    "category": "Productivity",
+    "capabilities": [
+      "MCP"
+    ],
+    "websiteURL": "https://www.gronox.kr",
+    "privacyPolicyURL": "https://www.gronox.kr/privacy",
+    "termsOfServiceURL": "https://www.gronox.kr/terms",
+    "defaultPrompt": [
+      "Run the Minervini trend template screen over Korean listings and show the top names.",
+      "Pull Samsung Electronics' latest DART financials and compare them with Apple's SEC filing.",
+      "Show recent insider trades and 13F holders for IREN."
+    ],
+    "brandColor": "#0B1F3A"
+  }
+}
