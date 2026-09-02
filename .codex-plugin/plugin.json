@@ -44,5 +44,6 @@
       "Show recent insider trades and 13F holders for IREN."
     ],
     "brandColor": "#0B1F3A"
-  }
+  },
+  "license": "MIT"
 }
