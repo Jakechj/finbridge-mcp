@@ -2,8 +2,8 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "kr.gronox/finbridge",
   "title": "FinBridge",
-  "description": "Korea-first financial data for AI agents: DART, EDGAR, EDINET, TWSE. 35 MCP tools, free tier.",
-  "version": "0.1.1",
+  "description": "Financial data for AI agents from official sources: Korea, US, Taiwan, Japan. 35 tools, free tier.",
+  "version": "0.1.2",
   "websiteUrl": "https://www.gronox.kr",
   "repository": {
     "url": "https://github.com/Jakechj/finbridge-mcp",
@@ -20,6 +20,15 @@
           "isRequired": false,
           "isSecret": true
         }
+      ]
+    }
+  ],
+  "icons": [
+    {
+      "src": "https://mcp.gronox.kr/icon.png",
+      "mimeType": "image/png",
+      "sizes": [
+        "512x512"
       ]
     }
   ]
