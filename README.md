@@ -1,24 +1,40 @@
-# FinBridge MCP — Korean + US market data for AI agents
+# FinBridge — DART + SEC + FRED + prices + screeners. One MCP.
 
-**Remote MCP server** (Streamable HTTP): `https://mcp.gronox.kr/mcp`
+**The finance MCP for AI stock analysis.** FinBridge is a hosted data service that collects official financial data for **Korea, the United States, Japan and Taiwan** (plus European statements) every night, normalises it to one schema, and serves it to ChatGPT, Claude, Cursor or any MCP client — and to everything else over a REST API.
 
-FinBridge gives your AI assistant (Claude, ChatGPT, Gemini CLI, Cursor — any MCP client) unified access to Korean and US market data on one normalized schema. It is the only place that serves the Korean market as a first-class citizen: DART filings, corporate-action-adjusted prices, 1,300+ Korean ETFs and named screeners — data that global providers either skip or gate behind $149/mo tiers.
+- **MCP endpoint (Streamable HTTP):** `https://mcp.gronox.kr/mcp`
+- **REST API:** `https://mcp.gronox.kr/api/v1` · OpenAPI 3.1: `https://mcp.gronox.kr/api/v1/openapi.json`
+- **Free plan, no card:** 200 calls/day, every tool, the last 4 fiscal years and 130 trading sessions. Paid plans buy history depth, not attempts.
 
-**Licensing-clean by design**: FinBridge serves only data it may redistribute — OpenDART, SEC EDGAR, data.go.kr (Financial Services Commission), FRED public series, and exchange public data via ccxt. No scraped or license-encumbered feeds.
+Official sources only, and only sources we may redistribute: OpenDART, SEC EDGAR, EDINET, TWSE/TPEx OpenAPI, data.go.kr (Financial Services Commission), Databento (US daily prices), FRED public series, exchange public data via ccxt. Every answer names its source and as-of date, and every company carries a `page_url` to a public page with the filing behind each number.
 
-## What you get (33 tools)
+## Coverage
+
+| Market | Source | Statements & filings | Daily prices | Segments | Screeners / backtests |
+|---|---|---|---|---|---|
+| Korea (KRX) | OpenDART · data.go.kr | ✅ K-IFRS, normalised, revisions kept | ✅ corporate-action adjusted, 2020– | ✅ | ✅ |
+| United States | SEC EDGAR · Databento | ✅ US-GAAP, as-filed (point-in-time) history | ✅ from 2023-03, split-adjusted | ✅ (SEC DERA) | ✅ |
+| Taiwan | TWSE / TPEx OpenAPI | ✅ TW-IFRS | ✅ 2004– | — | ✅ |
+| Japan | EDINET | ✅ J-GAAP / IFRS | — (no redistributable source) | ✅ | — |
+| Europe | ESEF / IFRS | ✅ statements | — | — | — |
+
+Public pages for every listed operating company: `https://www.gronox.kr/companies/{kr|us|jp|tw}/{symbol}` (e.g. [Samsung Electronics](https://www.gronox.kr/companies/kr/005930)).
+
+## What you get (37 tools)
 
 | Area | Tools |
 |---|---|
-| Korean market | DART filings · financials (K-IFRS, normalized) · insider trades · major events · corporate-action-adjusted daily prices (2020–) · 1,354 ETFs · KOSPI/KOSPI200 |
-| US market | SEC EDGAR filings · financials (US-GAAP, 18y) · Form 4 insider trades · 13F holdings · shares outstanding (US price feeds are not redistributed — licensing policy) |
-| Screeners | Minervini Trend Template (+VCP) · CAN SLIM · RS leaders · technical screens — over every Korean listing, with national RS percentiles |
-| Analysis | Technical indicators · valuation snapshots · KR/US financial comparison · portfolio backtests (KR stocks/ETFs) · disclosure news feed |
-| Macro & crypto | FRED series (rates, FX) · economic snapshot · crypto quotes/OHLCV via ccxt |
+| Statements & filings | DART / EDGAR financials (with the five nearest peers attached), filings, major events, insider trades (DART · Form 4), 13F institutional holdings, disclosure feed |
+| Prices & technicals | Daily OHLCV (KR · US · TW), technical indicators, valuation snapshots with market percentiles |
+| Screeners | Minervini trend template, CAN SLIM, Kell and Schwartz playbooks, technical screens, ETF screens — nightly over every listing |
+| Peers & segments | `get_peers` by industry group and size, or by business-mix similarity from reported segments |
+| Research | Portfolio backtests with trading costs (KR · US · TW), point-in-time factor studies, saved runs, read-only SQL over the database |
+| Macro & crypto | FRED series and snapshots, crypto tickers / OHLCV / exchange premium |
+| Account | Watchlist, portfolio import |
+
+Tool reference (rendered from the live registry): https://www.gronox.kr/docs
 
 ## Quick start
-
-**Free tier, no card**: 100 metered calls/day (basic lookups are unmetered), 130 trading sessions / 4 quarters of depth. Paid plans buy depth, not attempts.
 
 ### Claude (claude.ai / Desktop)
 Settings → Connectors → Add custom connector → `https://mcp.gronox.kr/mcp` — sign in with Google, no key needed.
@@ -27,30 +43,46 @@ Settings → Connectors → Add custom connector → `https://mcp.gronox.kr/mcp`
 ```bash
 claude mcp add --transport http finbridge https://mcp.gronox.kr/mcp --header "Authorization: Bearer smcp_..."
 ```
-Get a key at [www.gronox.kr](https://www.gronox.kr) (Google sign-in, issued instantly).
+Get a key at https://www.gronox.kr/login (Google sign-in, issued instantly).
 
 ### ChatGPT (developer mode)
-Settings → Apps & Connectors → Advanced → Developer mode → Create connector with the URL above and your `smcp_` key as an access token.
+Settings → Apps & Connectors → Advanced → Developer mode → Create connector with the URL above and your `smcp_` key as the access token.
 
-### Gemini CLI
+### Any MCP client (Gemini CLI, Cursor, …)
 ```json
 {"mcpServers": {"finbridge": {"httpUrl": "https://mcp.gronox.kr/mcp",
   "headers": {"Authorization": "Bearer smcp_..."}}}}
 ```
 
+### REST (no MCP client)
+```bash
+curl -H "Authorization: Bearer smcp_..." https://mcp.gronox.kr/api/v1/companies/kr/005930/financials
+curl -H "Authorization: Bearer smcp_..." "https://mcp.gronox.kr/api/v1/companies/us/AAPL/peers?limit=5"
+```
+Endpoints: `/companies/{market}/{symbol}` (profile) · `/financials` · `/valuation` · `/peers` · `/prices`. Same key, same quota, same depth as MCP.
+
+## Good first questions
+
+1. "Compare Samsung Electronics with its five nearest peers on P/E, ROE and revenue growth."
+2. "Screen KOSDAQ for names above RS 90 that pass the trend template."
+3. "Pull Apple's last four annual statements and summarise margin trends."
+
 ## Links
 
-- Product & API keys: https://www.gronox.kr
-- Tool reference: https://www.gronox.kr/docs
-- Live coverage/status: https://mcp.gronox.kr/status
-- Screeners explained: https://www.gronox.kr/screeners
-- 한국어: https://www.gronox.kr/ko
+- Product, keys and pricing: https://www.gronox.kr · https://www.gronox.kr/pricing
+- Connect guide: https://www.gronox.kr/connect
+- Where to get each market's data for free (guides): https://www.gronox.kr/guides
+- Data sources and licences: https://www.gronox.kr/sources
+- Status: https://mcp.gronox.kr/status
+- Registry: `kr.gronox/finbridge` in the official MCP Registry · Smithery `red0920/finbridge` · mcp.so
+- 한국어: https://www.gronox.kr/ko · 日本語: https://www.gronox.kr/ja
 
 ## Notes
 
-- Data is a nightly snapshot (filings feed refreshes every 5 minutes); not real-time quotes.
-- Output is information, not investment advice. FinBridge is not affiliated with any trader whose published criteria it implements.
-- This repository is the public listing for the hosted service; the server itself is not open source.
+- Data is a nightly snapshot (the filings feed refreshes every 5 minutes); not real-time quotes.
+- Statements follow the local accounting standard (K-IFRS, US-GAAP, J-GAAP/IFRS, TW-IFRS), so cross-market ratios are approximations.
+- Information only, not investment advice. FinBridge is not affiliated with any trader whose published criteria it implements.
+- This repository is the public listing (registry manifest `server.json`) for the hosted service; the server itself is not open source.
 
 Contact: 4y.changemaker@gmail.com
 
