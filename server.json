@@ -2,8 +2,8 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "kr.gronox/finbridge",
   "title": "FinBridge",
-  "description": "Financial data for AI agents from official sources: Korea, US, Taiwan, Japan. 35 tools, free tier.",
-  "version": "0.1.2",
+  "description": "Official-source financial data for AI agents: Korea, US, Taiwan, Japan, Europe. 37 tools, free tier.",
+  "version": "0.1.3",
   "websiteUrl": "https://www.gronox.kr",
   "repository": {
     "url": "https://github.com/Jakechj/finbridge-mcp",
