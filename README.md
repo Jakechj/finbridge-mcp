@@ -61,6 +61,16 @@ curl -H "Authorization: Bearer smcp_..." "https://mcp.gronox.kr/api/v1/companies
 ```
 Endpoints: `/companies/{market}/{symbol}` (profile) · `/financials` · `/valuation` · `/peers` · `/prices`. Same key, same quota, same depth as MCP.
 
+## Built-in prompts
+
+FinBridge registers three MCP prompts, so you can start without typing a question. In Claude.ai or Claude Desktop open the **+** menu → **FinBridge** and pick one; in Claude Code type the slash command. Clients that don't list prompts (Cursor, ChatGPT developer mode): paste the one-liner.
+
+| Prompt | What it does | Claude Code | Paste instead |
+|---|---|---|---|
+| This week's watchlist | What passed the trend, CAN SLIM, VCP and RS screens this week (KR/US/TW), then a closer look at the strongest three | `/mcp__finbridge__weekly_watchlist kr` | "Run this week's FinBridge watchlist for Korea and check the strongest three with get_valuation and get_technicals." |
+| Company check-up | One company end to end: four annual statements, valuation vs five peers, technicals, latest filings, every number dated | `/mcp__finbridge__company_checkup 005930` | "Give me a FinBridge check-up of Samsung Electronics (005930) with data_as_of dates." |
+| First three questions | A one-minute tour: peers, a screen, four years of statements | `/mcp__finbridge__first_questions` | "I just connected FinBridge — answer its three starter questions and show which tool you used." |
+
 ## Good first questions
 
 1. "Compare Samsung Electronics with its five nearest peers on P/E, ROE and revenue growth."
