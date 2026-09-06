@@ -37,7 +37,7 @@ Tool reference (rendered from the live registry): https://www.gronox.kr/docs
 ## Quick start
 
 ### Claude (claude.ai / Desktop)
-Settings → Connectors → Add custom connector → `https://mcp.gronox.kr/mcp` — sign in with Google, no key needed.
+Settings → Connectors → Add custom connector → `https://mcp.gronox.kr/mcp` — sign in with Google, no key needed. Then, in each new chat, open **+ → FinBridge** to turn it on (connectors are off per conversation until you do) and ask.
 
 ### Claude Code
 ```bash
@@ -63,7 +63,7 @@ Endpoints: `/companies/{market}/{symbol}` (profile) · `/financials` · `/valuat
 
 ## Built-in prompts
 
-FinBridge registers three MCP prompts, so you can start without typing a question. In Claude.ai or Claude Desktop open the **+** menu → **FinBridge** and pick one; in Claude Code type the slash command. Clients that don't list prompts (Cursor, ChatGPT developer mode): paste the one-liner.
+FinBridge registers three MCP prompts, so you can start without typing a question. In Claude.ai or Claude Desktop, turn FinBridge on in the chat (**+ → FinBridge**), then open **+ → FinBridge** again and pick a prompt; in Claude Code type the slash command. Clients that don't list prompts (Cursor, ChatGPT developer mode): paste the one-liner.
 
 | Prompt | What it does | Claude Code | Paste instead |
 |---|---|---|---|
