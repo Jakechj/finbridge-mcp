@@ -58,6 +58,7 @@ Settings → Apps & Connectors → Advanced → Developer mode → Create connec
 ```bash
 curl -H "Authorization: Bearer smcp_..." https://mcp.gronox.kr/api/v1/companies/kr/005930/financials
 curl -H "Authorization: Bearer smcp_..." "https://mcp.gronox.kr/api/v1/companies/us/AAPL/peers?limit=5"
+curl -H "Authorization: Bearer smcp_..." "https://mcp.gronox.kr/api/v1/companies/eu/NL0010273215/peers?limit=5"   # Europe by ISIN (ASML): statements-based peers, no prices
 ```
 Endpoints: `/companies/{market}/{symbol}` (profile) · `/financials` · `/valuation` · `/peers` · `/prices`. Same key, same quota, same depth as MCP.
 
