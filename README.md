@@ -20,7 +20,7 @@ Official sources only, and only sources we may redistribute: OpenDART, SEC EDGAR
 
 Public pages for every listed operating company: `https://www.gronox.kr/companies/{kr|us|jp|tw}/{symbol}` (e.g. [Samsung Electronics](https://www.gronox.kr/companies/kr/005930)).
 
-## What you get (37 tools)
+## What you get (38 tools)
 
 | Area | Tools |
 |---|---|
