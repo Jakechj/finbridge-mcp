@@ -4,7 +4,7 @@ FinBridge is a **hosted** MCP server. There is nothing to clone, build or run lo
 
 - Endpoint: `https://mcp.gronox.kr/mcp`
 - Transport: Streamable HTTP
-- Authentication: OAuth 2.1 with dynamic client registration (a Google sign-in window opens on first use), **or** an API key sent as a Bearer token. Free plan: 200 calls/day, no card. Keys are issued at https://www.gronox.kr/login after Google sign-in.
+- Authentication: OAuth 2.1 with dynamic client registration (a Google sign-in window opens on first use), **or** an API key sent as a Bearer token. Free plan: 10 calls a day across the web and your AI, no card (current plans: https://www.gronox.kr/pricing). Keys are issued at https://www.gronox.kr/login after Google sign-in.
 
 ## Cline
 
