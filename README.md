@@ -1,22 +1,24 @@
-# FinBridge — DART + SEC + FRED + prices + screeners. One MCP.
+# FinBridge — Korean DART filings in English, with US, Japan and Europe for comparison. One MCP.
 
-**The finance MCP for AI stock analysis.** FinBridge is a hosted data service that collects official financial data for **Korea, the United States, Japan and Taiwan** (plus European statements) every night, normalises it to one schema, and serves it to ChatGPT, Claude, Cursor or any MCP client — and to everything else over a REST API.
+**Official Korean company data for AI clients.** FinBridge collects DART filings and financial statements every night (the filings feed every 5 minutes), adds plain-language English summaries of material disclosures, and serves them to ChatGPT, Claude, Cursor or any MCP client, and over a REST API. US (SEC EDGAR), Japan (EDINET), Taiwan and Europe (ESEF) statements are there as comparison counterparts.
 
 - **MCP endpoint (Streamable HTTP):** `https://mcp.gronox.kr/mcp`
 - **REST API:** `https://mcp.gronox.kr/api/v1` · OpenAPI 3.1: `https://mcp.gronox.kr/api/v1/openapi.json`
-- **Free plan, no card:** 200 calls/day, every tool, the last 4 fiscal years and 130 trading sessions. Paid plans buy history depth, not attempts.
+- **Free plan, no card:** 10 calls a day across the web and your AI, every tool, the last 4 fiscal years. Paid plans buy volume and history depth. Current plans: https://www.gronox.kr/pricing
 
-Official sources only, and only sources we may redistribute: OpenDART, SEC EDGAR, EDINET, TWSE/TPEx OpenAPI, data.go.kr (Financial Services Commission), Databento (US daily prices), FRED public series, exchange public data via ccxt. Every answer names its source and as-of date, and every company carries a `page_url` to a public page with the filing behind each number.
+Official sources only, and only sources we may redistribute: OpenDART, SEC EDGAR, EDINET, TWSE/TPEx OpenAPI, ESEF filings and data.go.kr (Financial Services Commission). Every answer names its source and as-of date, and every company carries a `page_url` to a public page with the filing behind each number.
 
 ## Coverage
 
-| Market | Source | Statements & filings | Daily prices | Segments | Screeners / backtests |
-|---|---|---|---|---|---|
-| Korea (KRX) | OpenDART · data.go.kr | ✅ K-IFRS, normalised, revisions kept | ✅ corporate-action adjusted, 2020– | ✅ | ✅ |
-| United States | SEC EDGAR · Databento | ✅ US-GAAP, as-filed (point-in-time) history | ✅ from 2023-03, split-adjusted | ✅ (SEC DERA) | ✅ |
-| Taiwan | TWSE / TPEx OpenAPI | ✅ TW-IFRS | ✅ 2004– | — | ✅ |
-| Japan | EDINET | ✅ J-GAAP / IFRS | — (no redistributable source) | ✅ | — |
-| Europe | ESEF / IFRS | ✅ statements | — | — | — |
+| Market | Source | Statements & filings | Segments |
+|---|---|---|---|
+| Korea (KRX) | OpenDART · data.go.kr | ✅ K-IFRS, normalised, revisions kept, English summaries of material filings | ✅ |
+| United States | SEC EDGAR | ✅ US-GAAP, as-filed (point-in-time) history | ✅ (SEC DERA) |
+| Japan | EDINET | ✅ J-GAAP / IFRS | ✅ |
+| Taiwan | TWSE / TPEx OpenAPI | ✅ TW-IFRS | — |
+| Europe | ESEF / IFRS | ✅ statements | — |
+
+Korean and US stock price delivery is paused; prices are not part of what FinBridge sells today.
 
 Public pages for every listed operating company: `https://www.gronox.kr/companies/{kr|us|jp|tw}/{symbol}` (e.g. [Samsung Electronics](https://www.gronox.kr/companies/kr/005930)).
 
@@ -24,13 +26,13 @@ Public pages for every listed operating company: `https://www.gronox.kr/companie
 
 | Area | Tools |
 |---|---|
-| Statements & filings | DART / EDGAR financials (with the five nearest peers attached), filings, major events, insider trades (DART · Form 4), 13F institutional holdings, disclosure feed |
-| Prices & technicals | Daily OHLCV (KR · US · TW), technical indicators, valuation snapshots with market percentiles |
-| Screeners | Minervini trend template, CAN SLIM, Kell and Schwartz playbooks, technical screens, ETF screens — nightly over every listing |
-| Peers & segments | `get_peers` by industry group and size, or by business-mix similarity from reported segments |
-| Research | Portfolio backtests with trading costs (KR · US · TW), point-in-time factor studies, saved runs, read-only SQL over the database |
-| Macro & crypto | FRED series and snapshots, crypto tickers / OHLCV / exchange premium |
-| Account | Watchlist, portfolio import |
+| Korean filings | DART filings, major-event reports, the disclosure feed with plain-language English summaries, filing bodies by section and table (`get_dart_document`), company search |
+| Statements | DART and EDGAR financial statements with revision history, and a Korea–US comparison (`compare_financials_kr_us`) |
+| Insiders & holders | DART executive and major-shareholder trades, SEC Form 4, Taiwan insider transfers, 13F institutional holdings |
+| Comparison references | `get_peers` across KR / US / TW / JP / EU from sourced business themes and reported segments |
+| Account | Watchlist, portfolio import and history, read-only SQL over the filings database |
+
+Korean and US stock prices, technicals, valuation and screens are paused: those tools answer with a notice. Nothing here is investment advice.
 
 Tool reference (rendered from the live registry): https://www.gronox.kr/docs
 
@@ -60,7 +62,7 @@ curl -H "Authorization: Bearer smcp_..." https://mcp.gronox.kr/api/v1/companies/
 curl -H "Authorization: Bearer smcp_..." "https://mcp.gronox.kr/api/v1/companies/us/AAPL/peers?limit=5"
 curl -H "Authorization: Bearer smcp_..." "https://mcp.gronox.kr/api/v1/companies/eu/NL0010273215/peers?limit=5"   # Europe by ISIN: statements-based peers, no prices (EU groups all IT/electronics together, so treat the list as a starting point)
 ```
-Endpoints: `/companies/{market}/{symbol}` (profile) · `/financials` · `/valuation` · `/peers` · `/prices`. Same key, same quota, same depth as MCP.
+Endpoints: `/companies/{market}/{symbol}` (profile) · `/financials` · `/peers`. `/valuation` and `/prices` answer with the pause notice. Same key, same quota, same depth as MCP.
 
 ## Built-in prompts
 
@@ -68,15 +70,15 @@ FinBridge registers three MCP prompts, so you can start without typing a questio
 
 | Prompt | What it does | Claude Code | Paste instead |
 |---|---|---|---|
-| This week's watchlist | What passed the trend, CAN SLIM, VCP and RS screens this week (KR/US/TW), then a closer look at the strongest three | `/mcp__finbridge__weekly_watchlist kr` | "Run this week's FinBridge watchlist for Korea and check the strongest three with get_valuation and get_technicals." |
-| Company check-up | One company end to end: four annual statements, valuation vs five peers, technicals, latest filings, every number dated | `/mcp__finbridge__company_checkup 005930` | "Give me a FinBridge check-up of Samsung Electronics (005930) with data_as_of dates." |
-| First three questions | A one-minute tour: peers, a screen, four years of statements | `/mcp__finbridge__first_questions` | "I just connected FinBridge — answer its three starter questions and show which tool you used." |
+| This week's filings | This week's material filings for the companies you follow (or one market's if you follow none), grouped by company with each filing's figures and link | `/mcp__finbridge__weekly_watchlist kr` | "Show this week's FinBridge filings for the companies I follow, grouped by company, facts only." |
+| Company check-up | One company, facts only: four annual statements, comparison references, recent filings and insider trades, every number dated | `/mcp__finbridge__company_checkup 005930` | "Give me a FinBridge check-up of Samsung Electronics (005930) with data_as_of dates." |
+| First three questions | A one-minute tour: a company's recent filings, this month's treasury-share announcements, a Korea–US financials comparison | `/mcp__finbridge__first_questions` | "I just connected FinBridge — answer its three starter questions and show which tool you used." |
 
 ## Good first questions
 
-1. "Compare Samsung Electronics with its five nearest peers on P/E, ROE and revenue growth."
-2. "Screen KOSDAQ for names above RS 90 that pass the trend template."
-3. "Pull Apple's last four annual statements and summarise margin trends."
+1. "What did Samsung Electronics disclose in the last 30 days? Summarize the material filings in English."
+2. "Which Korean listed companies announced treasury-share purchases this month?"
+3. "Compare SK hynix and Micron on revenue and operating margin over the last three years."
 
 ## Links
 
@@ -90,9 +92,9 @@ FinBridge registers three MCP prompts, so you can start without typing a questio
 
 ## Notes
 
-- Data is a nightly snapshot (the filings feed refreshes every 5 minutes); not real-time quotes.
+- Statements are a nightly snapshot (the filings feed refreshes every 5 minutes).
 - Statements follow the local accounting standard (K-IFRS, US-GAAP, J-GAAP/IFRS, TW-IFRS), so cross-market ratios are approximations.
-- Information only, not investment advice. FinBridge is not affiliated with any trader whose published criteria it implements.
+- Information only, not investment advice: no ratings, target prices or buy/sell views.
 - This repository is the public listing (registry manifest `server.json`) for the hosted service; the server itself is not open source.
 
 Contact: 4y.changemaker@gmail.com
