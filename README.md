@@ -4,7 +4,7 @@
 
 - **MCP endpoint (Streamable HTTP):** `https://mcp.gronox.kr/mcp`
 - **REST API:** `https://mcp.gronox.kr/api/v1` · OpenAPI 3.1: `https://mcp.gronox.kr/api/v1/openapi.json`
-- **Free plan, no card:** 10 calls a day across the web and your AI, every tool, the last 4 fiscal years. Paid plans buy volume and history depth. Current plans: https://www.gronox.kr/pricing
+- **Free plan, no card:** 10 calls a day across the web and your AI, every tool, the last 4 fiscal years. Paid plans buy volume and history depth. Current plans: https://finbridge.gronox.kr/pricing
 
 Official sources only, and only sources we may redistribute: OpenDART, SEC EDGAR, EDINET, TWSE/TPEx OpenAPI, ESEF filings and data.go.kr (Financial Services Commission). Every answer names its source and as-of date, and every company carries a `page_url` to a public page with the filing behind each number.
 
@@ -20,7 +20,7 @@ Official sources only, and only sources we may redistribute: OpenDART, SEC EDGAR
 
 Korean and US stock price delivery is paused; prices are not part of what FinBridge sells today.
 
-Public pages for every listed operating company: `https://www.gronox.kr/companies/{kr|us|jp|tw}/{symbol}` (e.g. [Samsung Electronics](https://www.gronox.kr/companies/kr/005930)).
+Public pages for every listed operating company: `https://finbridge.gronox.kr/companies/{kr|us|jp|tw}/{symbol}` (e.g. [Samsung Electronics](https://finbridge.gronox.kr/companies/kr/005930)).
 
 ## What you get
 
@@ -34,7 +34,7 @@ Public pages for every listed operating company: `https://www.gronox.kr/companie
 
 Korean and US stock prices, technicals, valuation and screens are paused: those tools answer with a notice. Nothing here is investment advice.
 
-Tool reference (rendered from the live registry): https://www.gronox.kr/docs
+Tool reference (rendered from the live registry): https://finbridge.gronox.kr/docs
 
 ## Quick start
 
@@ -45,7 +45,7 @@ Settings → Connectors → Add custom connector → `https://mcp.gronox.kr/mcp`
 ```bash
 claude mcp add --transport http finbridge https://mcp.gronox.kr/mcp --header "Authorization: Bearer smcp_..."
 ```
-Get a key at https://www.gronox.kr/login (Google sign-in, issued instantly).
+Get a key at https://finbridge.gronox.kr/login (Google sign-in, issued instantly).
 
 ### ChatGPT (developer mode)
 Settings → Apps & Connectors → Advanced → Developer mode → Create connector with the URL above and your `smcp_` key as the access token.
@@ -82,13 +82,13 @@ FinBridge registers three MCP prompts, so you can start without typing a questio
 
 ## Links
 
-- Product, keys and pricing: https://www.gronox.kr · https://www.gronox.kr/pricing
-- Connect guide: https://www.gronox.kr/connect
-- Where to get each market's data for free (guides): https://www.gronox.kr/guides
-- Data sources and licences: https://www.gronox.kr/sources
+- Product, keys and pricing: https://finbridge.gronox.kr · https://finbridge.gronox.kr/pricing
+- Connect guide: https://finbridge.gronox.kr/connect
+- Where to get each market's data for free (guides): https://finbridge.gronox.kr/guides
+- Data sources and licences: https://finbridge.gronox.kr/sources
 - Status: https://mcp.gronox.kr/status
 - Registry: `kr.gronox/finbridge` in the official MCP Registry · Smithery `red0920/finbridge` · mcp.so
-- 한국어: https://www.gronox.kr/ko · 日本語: https://www.gronox.kr/ja
+- 한국어: https://finbridge.gronox.kr/ko · 日本語: https://finbridge.gronox.kr/ja
 
 ## Notes
 
@@ -101,4 +101,4 @@ Contact: 4y.changemaker@gmail.com
 
 ## License
 
-The contents of this repository (listing metadata and documentation) are released under the [MIT License](./LICENSE). The hosted FinBridge service and its source code are not part of this repository and are provided under the [FinBridge Terms of Service](https://www.gronox.kr/terms).
+The contents of this repository (listing metadata and documentation) are released under the [MIT License](./LICENSE). The hosted FinBridge service and its source code are not part of this repository and are provided under the [FinBridge Terms of Service](https://finbridge.gronox.kr/terms).

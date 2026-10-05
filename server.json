@@ -4,7 +4,7 @@
   "title": "FinBridge",
   "description": "Korean DART filings and financials in English, with US, Japan and Europe for comparison.",
   "version": "0.1.5",
-  "websiteUrl": "https://www.gronox.kr",
+  "websiteUrl": "https://finbridge.gronox.kr",
   "repository": {
     "url": "https://github.com/Jakechj/finbridge-mcp",
     "source": "github"
@@ -16,7 +16,7 @@
       "headers": [
         {
           "name": "Authorization",
-          "description": "Bearer smcp_... API key from https://www.gronox.kr (free tier). OAuth-capable clients (e.g. Claude) can connect without a key via Google sign-in.",
+          "description": "Bearer smcp_... API key from https://finbridge.gronox.kr (free tier). OAuth-capable clients (e.g. Claude) can connect without a key via Google sign-in.",
           "isRequired": false,
           "isSecret": true
         }
